@@ -14,4 +14,4 @@ EXPOSE 8021
 # Start the uploader alongside the server. The xtts command is IDENTICAL to the
 # base image's default CMD - we only background the uploader first, so synth
 # behaviour is unchanged.
-CMD ["bash","-c","python3 /app/uploader.py & python3 -m xtts_api_server --listen -p 8020 -lsf 'latent_speaker_folder' -o 'output' -mf 'xtts_models' -d 'cuda' --deepspeed"]
+CMD ["bash","-c","python3 /app/uploader.py & python3 -m xtts_api_server --listen -p 8020 -lsf 'latent_speaker_folder' -o 'output' -mf 'xtts_models' -d 'cuda'"]
