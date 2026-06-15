@@ -1,0 +1,22 @@
+name: build-and-push-upload
+on:
+  workflow_dispatch:        # manual only - never touches :latest automatically
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Free disk space
+        run: docker system prune -af || true
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push :upload
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile.upload
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/mantella-xtts-skyrim:upload
