@@ -1,8 +1,0 @@
-# :upload tag = the working :latest image + a tiny stdlib upload sidecar on 8021,
-# so Mantella can push per-Sim custom voice .wav files at runtime. The xtts CMD is
-# kept IDENTICAL to the base (only backgrounding the uploader first), so synth
-# behaviour is unchanged vs :latest.
-FROM ghcr.io/bimo0o/mantella-xtts-skyrim:latest
-COPY uploader.py /app/uploader.py
-EXPOSE 8021
-CMD ["bash","-c","python3 /app/uploader.py & python3 -m xtts_api_server --listen -p 8020 -lsf 'latent_speaker_folder' -o 'output' -mf 'xtts_models' -d 'cuda' --deepspeed"]
